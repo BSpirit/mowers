@@ -1,18 +1,32 @@
 package mowers;
 
+/**
+ * Represents possible Mower Orientation.
+ * @author Tony Clonier
+ */
 public enum Orientation {
     NORTH("N"),
     EAST("E"),
     WEST("W"),
     SOUTH("S");
 
-    private String value;
+    private final String value;
 
+    /**
+     * Private constructor used to create Orientation instances.
+     * @param value String representation of an Orientation
+     */
     Orientation(String value) {
         this.value = value;
     }
 
-    public static Orientation fromValue(String value) {
+    /**
+     * Returns Orientation instance from String value
+     * @param value String representation of Orientation. Must be "N", "E", "W or "F"
+     * @return Orientation instance related to input value
+     * @throws IllegalArgumentException if value is not "N", "E", "W or "F"
+     */
+    public static Orientation fromValue(String value) throws IllegalArgumentException {
         switch (value) {
             case "N":
                 return NORTH;
@@ -27,8 +41,13 @@ public enum Orientation {
         }
     }
 
-    public static Orientation leftRotate(Orientation currentOrientation) throws IllegalStateException {
-        switch (currentOrientation) {
+    /**
+     * Returns 90° left rotation of the Orientation
+     * @return Rotated Orientation
+     * @throws IllegalStateException if instance is not NORTH, WEST, EAST or SOUTH
+     */
+    public Orientation left90Rotation() throws IllegalStateException {
+        switch (this) {
             case NORTH:
                 return WEST;
             case WEST:
@@ -38,12 +57,17 @@ public enum Orientation {
             case EAST:
                 return NORTH;
             default:
-                throw new IllegalStateException("Unexpected value: " + currentOrientation);
+                throw new IllegalStateException("Unrecognised case: "+ this);
         }
     }
 
-    public static Orientation rightRotate(Orientation currentOrientation) throws IllegalStateException {
-        switch (currentOrientation) {
+    /**
+     * Returns 90° right rotation of the Orientation
+     * @return Rotated Orientation
+     * @throws IllegalStateException if instance is not NORTH, WEST, EAST or SOUTH
+     */
+    public Orientation right90Rotation() throws IllegalStateException {
+        switch (this) {
             case NORTH:
                 return EAST;
             case WEST:
@@ -53,10 +77,14 @@ public enum Orientation {
             case EAST:
                 return SOUTH;
             default:
-                throw new IllegalStateException("Unexpected value: " + currentOrientation);
+                throw new IllegalStateException("Unrecognised case: "+ this);
         }
     }
 
+    /**
+     * Returns a String representation of an Orientation.
+     * @return String representation of an Orientation
+     */
     @Override
     public String toString() {
         return this.value;
