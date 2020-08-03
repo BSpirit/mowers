@@ -22,9 +22,9 @@ public enum Orientation {
 
     /**
      * Returns Orientation instance from String value
-     * @param value String representation of Orientation. Must be "N", "E", "W or "F"
+     * @param value String representation of Orientation. Must be "N", "E", "W or "S"
      * @return Orientation instance related to input value
-     * @throws IllegalArgumentException if value is not "N", "E", "W or "F"
+     * @throws IllegalArgumentException if value is not "N", "E", "W or "S"
      */
     public static Orientation fromValue(String value) throws IllegalArgumentException {
         switch (value) {

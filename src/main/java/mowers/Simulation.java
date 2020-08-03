@@ -34,12 +34,12 @@ public class Simulation {
 
         service.shutdown();
         // Wait for all tasks to be finished
-        service.awaitTermination(1, TimeUnit.DAYS);
+        service.awaitTermination(3, TimeUnit.MINUTES);
     }
 
     /**
      * Creates a simulation from a file.
-     * An example input file can be found in src/main/java/resources/mowers
+     * An example input file can be found in src/main/resources/
      * @param file path of the file to load
      * @throws FileNotFoundException if file doesn't exist
      */
