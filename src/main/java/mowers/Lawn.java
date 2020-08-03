@@ -6,7 +6,7 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 /**
- * Represents the Lawn used for simulation
+ * Represents the Lawn used for simulation.
  * @author Tony Clonier
  */
 public class Lawn {
@@ -37,7 +37,7 @@ public class Lawn {
     public boolean inLawn(Position position) {
         int x = position.getX();
         int y = position.getY();
-        return (x >= 0 && x <= this.width) && (y >=0 && y <= this.height);
+        return (x >= 0 && x < this.width) && (y >=0 && y < this.height);
     }
 
     /**

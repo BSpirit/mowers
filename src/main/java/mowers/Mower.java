@@ -13,10 +13,10 @@ public class Mower implements Runnable {
     private Position position;
     private Orientation orientation;
     private Lawn lawn;
-    private List<Instruction> instructions = new LinkedList<>();
+    private final List<Instruction> instructions = new LinkedList<>();
 
     /**
-     * Creates a Mower with specified position and orientation
+     * Creates a Mower with specified position and orientation.
      * @param position current position of the Mower
      * @param orientation current orientation of the Mower
      */
@@ -86,14 +86,16 @@ public class Mower implements Runnable {
      * Method is thread safe.
      */
     public void moveForward() {
-        Position forwardPosition = this.getForwardPosition();
-        this.lawn.lock();
+        if (this.lawn != null) {
+            Position forwardPosition = this.getForwardPosition();
+            this.lawn.lock();
             if (this.lawn.inLawn(forwardPosition) && !this.lawn.isOccupied(forwardPosition)) {
                 this.lawn.removeOccupiedPosition(this.position);
                 this.lawn.addOccupiedPosition(forwardPosition);
                 this.position = forwardPosition;
             }
-        this.lawn.unlock();
+            this.lawn.unlock();
+        }
     }
 
     /**
@@ -163,6 +165,11 @@ public class Mower implements Runnable {
      * @param lawn new lawn in which the mower is located
      */
     public void setLawn(Lawn lawn) {
-        this.lawn = lawn;
+        lawn.lock();
+        if(lawn.inLawn(this.position) && !lawn.isOccupied(this.position)) {
+            lawn.addOccupiedPosition(this.position);
+            this.lawn = lawn;
+        }
+        lawn.unlock();
     }
 }

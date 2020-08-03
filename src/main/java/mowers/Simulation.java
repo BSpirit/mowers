@@ -44,14 +44,10 @@ public class Simulation {
      * @throws FileNotFoundException if file doesn't exist
      */
     public void loadFromFile(String file) throws FileNotFoundException {
-        Scanner sc = new Scanner(new BufferedReader(new FileReader(file)));
-        try {
+        // Close scanner if exception encountered
+        try (Scanner sc = new Scanner(new BufferedReader(new FileReader(file)))) {
             this.parseLawn(sc);
             this.parseMowers(sc);
-        } catch (Exception e) {
-            throw e;
-        } finally {
-            sc.close();
         }
     }
 
@@ -64,8 +60,8 @@ public class Simulation {
         try {
             String[] dimensions = sc.nextLine().split(" ");
             this.lawn = new Lawn(
-                    Integer.parseInt(dimensions[0]),
-                    Integer.parseInt(dimensions[1])
+                    Integer.parseInt(dimensions[0] + 1),
+                    Integer.parseInt(dimensions[1] + 1)
             );
         } catch (NumberFormatException | IndexOutOfBoundsException e) {
             throw new IllegalArgumentException("Could not parse Lawn");
